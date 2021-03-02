@@ -31,3 +31,10 @@ void Case::decrementNbPiecesPlayer1(){
 void Case::decrementNbPiecesPlayer2(){
 	nbPiecesPlayer2--;
 }
+
+int Case::GetNbPiecesPlayer1(){
+	return nbPiecesPlayer1;
+}
+int Case::GetNbPiecesPlayer2(){
+	return nbPiecesPlayer2;
+}

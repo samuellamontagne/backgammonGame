@@ -16,6 +16,8 @@ public:
 	void incrementNbPiecesPlayer2();
 	void decrementNbPiecesPlayer1();
 	void decrementNbPiecesPlayer2();
+	int GetNbPiecesPlayer1();
+	int GetNbPiecesPlayer2();
 
 private:
 	int nbPiecesPlayer1;
