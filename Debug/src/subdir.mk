@@ -6,21 +6,18 @@
 CPP_SRCS += \
 ../src/Board.cpp \
 ../src/Case.cpp \
-../src/Pieces.cpp \
 ../src/Players.cpp \
 ../src/backgammonGame.cpp 
 
 OBJS += \
 ./src/Board.o \
 ./src/Case.o \
-./src/Pieces.o \
 ./src/Players.o \
 ./src/backgammonGame.o 
 
 CPP_DEPS += \
 ./src/Board.d \
 ./src/Case.d \
-./src/Pieces.d \
 ./src/Players.d \
 ./src/backgammonGame.d 
 

@@ -7,7 +7,7 @@
 
 #ifndef PLAYERS_H_
 #define PLAYERS_H_
-#include "Pieces.h"
+
 #include <vector>
 #include <iostream>
 

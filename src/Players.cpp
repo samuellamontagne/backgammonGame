@@ -6,7 +6,7 @@
  */
 
 #include "Players.h"
-#include "case.h"
+#include "Case.h"
 #include <time.h>
 
 Players::Players():score(0) {

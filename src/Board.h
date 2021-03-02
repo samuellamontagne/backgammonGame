@@ -18,6 +18,8 @@ class Board {
 public:
 	Board(Players p1, Players p2);
 	virtual ~Board();
+	void movePiecePlayer1(int movedFrom, int movedTo);
+	void movePiecePlayer2(int movedFrom, int movedTo);
 
 
 private:

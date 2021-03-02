@@ -38,3 +38,43 @@ Board::~Board() {
 
 }
 
+void Board::movePiecePlayer1(int movedFrom, int movedTo){
+	if(mainBoard.at(movedFrom -1).GetNbPiecesPlayer1() == 0){
+		cout << "No pieces in this space" << endl;
+	}
+	else{
+
+		if(mainBoard.at(movedTo - 1).GetNbPiecesPlayer2() > 1){
+			cout << "Cannot play, because too much pieces from player 2 on case" << endl;
+		} else if(mainBoard.at(movedTo - 1).GetNbPiecesPlayer2() == 1){
+			//Capture mechanics TO ADD
+			mainBoard.at(movedFrom - 1).decrementNbPiecesPlayer1();
+			mainBoard.at(movedTo - 1).incrementNbPiecesPlayer1();
+		} else {
+			mainBoard.at(movedFrom - 1).decrementNbPiecesPlayer1();
+			mainBoard.at(movedTo - 1).incrementNbPiecesPlayer1();
+		}
+		//mainBoard.printBoard();
+	}
+}
+
+void Board::movePiecePlayer2(int movedFrom, int movedTo){
+	if(mainBoard.at(movedFrom -1).GetNbPiecesPlayer2() == 0){
+		cout << "No pieces in this space" << endl;
+	}
+	else{
+
+		if(mainBoard.at(movedTo - 1).GetNbPiecesPlayer1() > 1){
+			cout << "Cannot play, because too much pieces from player 1 on case" << endl;
+		} else if(mainBoard.at(movedTo - 1).GetNbPiecesPlayer1() == 1){
+			//Capture mechanics TO ADD
+			mainBoard.at(movedFrom - 1).decrementNbPiecesPlayer2();
+			mainBoard.at(movedTo - 1).incrementNbPiecesPlayer2();
+		} else {
+			mainBoard.at(movedFrom - 1).decrementNbPiecesPlayer2();
+			mainBoard.at(movedTo - 1).incrementNbPiecesPlayer2();
+		}
+		//mainBoard.printBoard();
+	}
+}
+
