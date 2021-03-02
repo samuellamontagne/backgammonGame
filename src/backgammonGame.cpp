@@ -1,9 +1,9 @@
 //============================================================================
 // Name        : backgammonGame.cpp
-// Author      : Samuel Lamontagne
+// Author      : Samuel Lamontagne &
 // Version     :
 // Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
+// Description : backgammon game program
 //============================================================================
 
 #include <iostream>
