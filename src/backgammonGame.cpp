@@ -8,20 +8,25 @@
 
 #include <iostream>
 #include "Players.h"
+#include <random>
+#include <chrono>
+#include <functional>
 #include "Board.h"
 
 using namespace std;
 
 bool firstPass = true;
+static int gen1to6;
 
 int rollDice(){
+
 
 	if(firstPass){
 
 		firstPass = false;
-		auto seed = static_cast<default_random_engine::result_type>(chrono::high_resolution_cliock::now().time_since_epoch().count());
+		auto seed = static_cast<default_random_engine::result_type>(chrono::high_resolution_clock::now().time_since_epoch().count());
 		auto engine = default_random_engine(seed);
-		auto gen1to6 = bind(uniform_int_distribution<>{1, 6}, engine);
+		gen1to6 = bind(uniform_int_distribution<>{1, 6}, engine);
 	}
 	return gen1to6();
 }
@@ -45,11 +50,13 @@ int main() {
 
 	cout << "Enter player's 1 name : " << endl;
 
-	cin << tempName;
+	cin >> tempName;
 
 	Players play1(tempName);
 
 	cout << "Enter player's 2 name : " << endl;
+
+	cin >> tempName;
 
 	Players play2(tempName);
 
