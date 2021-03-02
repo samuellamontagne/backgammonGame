@@ -6,18 +6,32 @@
  */
 
 #include "Players.h"
+#include "case.h"
 #include <time.h>
 
 Players::Players():score(0) {
-
+    if(playerCount>2){
+        throw "game just allow 2 persons";
+    }
+    playName="player"+to_string(playerCount);
+    playerCount++;
 }
 
 Players::~Players() {
 
 }
 
-void Players::movePiece(Pieces piece) {
 
+
+
+void Players::movePiece(int caseNum, int dice) {
+
+    if(dice == dice1 || dice == dice2 || dice == dice2+dice1){
+        caseNum+= dice;
+
+    } else{
+        throw "game just allow 2 persons";
+    }
 }
 
 const string &Players::getPlayName() const {
@@ -45,7 +59,10 @@ void Players::setPieceList(const vector<Pieces> &pieceList) {
 }
 
 Players::Players(const string &playName) : playName(playName) ,score(0) {
-
+    if(playerCount>2){
+        throw "game just allow 2 persons";
+    }
+    playerCount++;
 }
 
 void Players::rollDice() {
@@ -62,3 +79,4 @@ int Players::getDice2() const {
     return dice2;
 }
 
+int Players::playerCount = 1;

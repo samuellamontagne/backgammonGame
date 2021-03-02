@@ -10,7 +10,11 @@
 #include "Pieces.h"
 #include <vector>
 #include <iostream>
+
+
 using namespace std;
+
+const int NumPiece = 15;
 
 class Players {
 public:
@@ -19,7 +23,6 @@ public:
     Players(const string &playName);
 
     virtual ~Players();
-	void movePiece(Pieces piece);
 
     void rollDice();
 
@@ -32,21 +35,21 @@ public:
 
     void setScore(int score);
 
-    const vector<Pieces> &getPieceList() const;
-
-    void setPieceList(const vector<Pieces> &pieceList);
-
     int getDice1() const;
 
     int getDice2() const;
+
+    int &movePiece(int caseNum, int dice);
 
 
 private:
     string playName;
     int score;
-    vector<Pieces> pieceList;
     int dice1=0;
     int dice2=0;
+    static int playerCount;
+
+
 };
 
 
