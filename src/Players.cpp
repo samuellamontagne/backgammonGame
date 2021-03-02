@@ -22,18 +22,6 @@ Players::~Players() {
 }
 
 
-
-
-void Players::movePiece(int caseNum, int dice) {
-
-    if(dice == dice1 || dice == dice2 || dice == dice2+dice1){
-        caseNum+= dice;
-
-    } else{
-        throw "game just allow 2 persons";
-    }
-}
-
 const string &Players::getPlayName() const {
     return playName;
 }
@@ -50,13 +38,6 @@ void Players::setScore(int score) {
     Players::score = score;
 }
 
-const vector<Pieces> &Players::getPieceList() const {
-    return pieceList;
-}
-
-void Players::setPieceList(const vector<Pieces> &pieceList) {
-    Players::pieceList = pieceList;
-}
 
 Players::Players(const string &playName) : playName(playName) ,score(0) {
     if(playerCount>2){

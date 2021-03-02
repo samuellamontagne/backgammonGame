@@ -20,6 +20,8 @@ public:
 	virtual ~Board();
 	void movePiecePlayer1(int movedFrom, int movedTo);
 	void movePiecePlayer2(int movedFrom, int movedTo);
+	int GetNbPiecesOffPlayer1();
+	int GetNbPiecesOffPlayer2();
 
 
 private:

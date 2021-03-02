@@ -78,3 +78,10 @@ void Board::movePiecePlayer2(int movedFrom, int movedTo){
 	}
 }
 
+int Board::GetNbPiecesOffPlayer1(){
+	return player1Off;
+}
+int Board::GetNbPiecesOffPlayer2(){
+	return player2Off;
+}
+

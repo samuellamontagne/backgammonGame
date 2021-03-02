@@ -39,7 +39,6 @@ public:
 
     int getDice2() const;
 
-    int &movePiece(int caseNum, int dice);
 
 
 private:
