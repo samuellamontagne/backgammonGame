@@ -94,15 +94,15 @@ int main() {
 
 			dice1 = rollDice();
 			dice2 = rollDice();
-			captured = gameBoard.getCaptuted2();
+			captured = gameBoard.getCaptured1();
 
 			//Ask which dice to play
 
 			//EVENTUALLY check for pieces that have been captured
-			capturedCheck = gameBoard.hasCapturedPieces(play2.getPlayName());
+			capturedCheck = gameBoard.hasCapturedPieces(play1.getPlayName());
 
 			//EVENTUALLY Check if captured piece is stuck
-			capturedStuck = gameBoard.isCapturedPiecesStucked(dice1, dice2, play2.getPlayName());
+			capturedStuck = gameBoard.isCapturedPiecesStucked(dice1, dice2, play1.getPlayName());
 
 			//Ask which dice to play
 
@@ -139,7 +139,7 @@ int main() {
 				} else {
 
 					movedValid = gameBoard.movePiecePlayer1(0, 0 +  choosedDice);
-					gameBoard.setCaptuted2(captured--);
+					gameBoard.setCaptured1(captured--);
 				}
 			}else{
 			//Ask which Piece to move for the first dice
@@ -175,20 +175,45 @@ int main() {
 				dice1 = 0;
 			}
 
+			//EVENTUALLY check for pieces that have been captured
+			capturedCheck = gameBoard.hasCapturedPieces(play1.getPlayName());
+
+			//EVENTUALLY Check if captured piece is stuck
+			capturedStuck = gameBoard.isCapturedPiecesStucked(choosedDice, play1.getPlayName());
+
+			if(capturedCheck){
+
+				cout << "You have a captured piece ! You need to play this one !!" << endl;
+
+				if(capturedStuck){
+					cout << "Your captured piece is stuck, your turn is over !" << endl;
+					turn++;
+					continue;
+
+				} else {
+
+					movedValid = gameBoard.movePiecePlayer1(0, 0 + choosedDice);
+					gameBoard.setCaptured1(captured--);
+
+				}
+
+			}else {
+
 			//Ask which piece to move for this second dice
 
-			do{
+				do{
 
-				cout << "Enter the case of the piece you want to move from" << endl;
+					cout << "Enter the case of the piece you want to move from" << endl;
 
-				cin >> movedFrom;
+					cin >> movedFrom;
 
-				if(movedFrom < 1 && movedFrom > 24)
-					cout << "Invalid choice, please choose between 1 and 24" << endl;
+					if(movedFrom < 1 && movedFrom > 24)
+						cout << "Invalid choice, please choose between 1 and 24" << endl;
 
-				movedValid = gameBoard.movePiecePlayer1(movedFrom, movedFrom + choosedDice);
+					movedValid = gameBoard.movePiecePlayer1(movedFrom, movedFrom + choosedDice);
 
-			} while(movedValid == -1);
+				} while(movedValid == -1);
+			}
 
 			//Increment the turn so the other player plays
 
@@ -206,7 +231,7 @@ int main() {
 
 			dice1 = rollDice();
 			dice2 = rollDice();
-			captured = gameBoard.getCaptuted2();
+			captured = gameBoard.getCaptured2();
 
 			//Ask which dice to play
 
@@ -256,7 +281,7 @@ int main() {
 				} else {
 
 					movedValid = gameBoard.movePiecePlayer2(25, 25 - choosedDice);
-					gameBoard.setCaptuted2(captured--);
+					gameBoard.setCaptured2(captured--);
 				}
 			}else{
 				do{
@@ -311,7 +336,7 @@ int main() {
 				} else {
 
 					movedValid = gameBoard.movePiecePlayer2(25, 25 - choosedDice);
-					gameBoard.setCaptuted2(captured--);
+					gameBoard.setCaptured2(captured--);
 				}
 			}else{
 
