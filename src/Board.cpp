@@ -27,17 +27,17 @@ Board::Board(Players p1, Players p2):dice1(0), dice2(0), player1(p1), player2(p2
             currCase.setNbPiecesPlayer2(3);
 		else if(i == 18)
             currCase.setNbPiecesPlayer1(5);
-		else if(i == 23)
-            currCase.setNbPiecesPlayer2(2);
-		/*//Test case 1 captured
+//		else if(i == 23)
+//            currCase.setNbPiecesPlayer2(2);
+		//Test case 1 captured
 		else if(i == 23){
 			currCase.setNbPiecesPlayer2(1);
 			captured2 = 1;
 		}
 		//Test case 2 captured
-		else if(i == 23){
-			captured2 = 2;
-		}*/
+//		else if(i == 23){
+//			captured2 = 2;
+//		}
 
 		mainBoard.push_back(currCase);
 	}
@@ -175,7 +175,7 @@ void Board::print() {
         cout << "*";
         cout << setfill(' ');
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED);
-        cout << setw(20) << left << "Captured:"+to_string(captured2);
+        cout << setw(20) << left << "Captured:"+to_string(captured1);
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_GREEN);
         cout << setfill(' ') << setw(19) << right <<to_string(captured2)+":Captured" << "*" << endl;
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
@@ -250,14 +250,14 @@ bool Board::hasCapturedPieces(const string& playerName) {
 bool Board::isCapturedPiecesStucked(const int &d1, const int &d2, const string& playName) {
 
     if(playName==player1.getPlayName()){
-       if(mainBoard.at(d1-1).getNbPiecesPlayer2() >1 || mainBoard.at(d2-1).getNbPiecesPlayer2()>1){
+       if(mainBoard.at(d1-1).getNbPiecesPlayer2() >1 && mainBoard.at(d2-1).getNbPiecesPlayer2()>1){
            return true;
        }else{
            return false;
        }
 
     } else if(playName==player2.getPlayName()){
-        if(mainBoard.at(d1-1).getNbPiecesPlayer1() >1 || mainBoard.at(d2-1).getNbPiecesPlayer1()>1){
+        if(mainBoard.at(d1-1).getNbPiecesPlayer1() >1 && mainBoard.at(d2-1).getNbPiecesPlayer1()>1){
             return true;
         }else{
             return false;
