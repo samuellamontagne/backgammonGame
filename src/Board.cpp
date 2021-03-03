@@ -216,16 +216,16 @@ int Board::getCaptured1() const {
     return captured1;
 }
 
-void Board::setCaptured1(int captuted1) {
-    Board::captured1 = captuted1;
+void Board::setCaptured1(int captured1) {
+    Board::captured1 = captured1;
 }
 
 int Board::getCaptured2() const {
     return captured2;
 }
 
-void Board::setCaptured2(int captuted2) {
-    Board::captured2 = captuted2;
+void Board::setCaptured2(int captured2) {
+    Board::captured2 = captured2;
 }
 
 bool Board::hasCapturedPieces(const string& playerName) {
@@ -238,17 +238,17 @@ bool Board::hasCapturedPieces(const string& playerName) {
     }
 }
 
-bool Board::isCapturedPiecesStucked(const int &d1, const int &d2, const string& playName) {
+bool Board::isCapturedPiecesStucked(const string& playName,const int &d1, const int &d2=0) {
 
     if(playName==player1.getPlayName()){
-       if(mainBoard.at(d1-1).getNbPiecesPlayer2() >1 || mainBoard.at(d2-1).getNbPiecesPlayer2()>1){
+       if(mainBoard.at(d1-1).getNbPiecesPlayer2() >1 || d2 != 0 && mainBoard.at(d2 - 1).getNbPiecesPlayer2() > 1){
            return true;
        }else{
            return false;
        }
 
     } else if(playName==player2.getPlayName()){
-        if(mainBoard.at(d1-1).getNbPiecesPlayer1() >1 || mainBoard.at(d2-1).getNbPiecesPlayer1()>1){
+        if(mainBoard.at(d1-1).getNbPiecesPlayer1() >1 || d2 != 0 && mainBoard.at(d2 - 1).getNbPiecesPlayer1() > 1){
             return true;
         }else{
             return false;
@@ -258,25 +258,5 @@ bool Board::isCapturedPiecesStucked(const int &d1, const int &d2, const string& 
     }
 }
 
-
-bool Board::isCapturedPiecesStucked(const int &d, const string& playName) {
-
-    if(playName==player1.getPlayName()){
-        if(mainBoard.at(d-1).getNbPiecesPlayer2() >1 ){
-            return true;
-        }else{
-            return false;
-        }
-
-    } else if(playName==player2.getPlayName()){
-        if(mainBoard.at(d-1).getNbPiecesPlayer1() >1){
-            return true;
-        }else{
-            return false;
-        }
-    }else{
-        cout << "Error with player name";
-    }
-}
 
 

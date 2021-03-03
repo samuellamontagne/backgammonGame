@@ -29,15 +29,15 @@ public:
 
     int getCaptured1() const;
 
-    void setCaptured1(int captuted1);
+    void setCaptured1(int captured1);
 
     int getCaptured2() const;
 
-    void setCaptured2(int captuted2);
+    void setCaptured2(int captured2);
 
     bool hasCapturedPieces(const string& playerName);
 
-    bool isCapturedPiecesStucked(const int& d1, const int& d2, const string& PlayerName );
+    bool isCapturedPiecesStucked(const string &playName, const int &d1, const int &d2);
 
 private:
 	int dice1;
@@ -59,9 +59,7 @@ private:
 
     void getSize(int num1, int num2, string& basicString, string& basicString1);
 
-    bool isCapturedPiecesStucked(const int &d, const string &playName);
 
-    bool isCapturedPiecesStucked(const int &d, const string &playName);
 };
 
 #endif /* BOARD_H_ */
