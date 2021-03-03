@@ -18,12 +18,38 @@ class Board {
 public:
 	Board(Players p1, Players p2);
 	virtual ~Board();
-	void movePiecePlayer1(int movedFrom, int movedTo);
-	void movePiecePlayer2(int movedFrom, int movedTo);
+
+	//Return -1 if there is no pieces to move from the choosed space
+	//Return 1 if the pieces has been moved
+	int movePiecePlayer1(int movedFrom, int movedTo);
+	int movePiecePlayer2(int movedFrom, int movedTo);
+
+	//to know if a player has won the game
 	int GetNbPiecesOffPlayer1();
 	int GetNbPiecesOffPlayer2();
+
+	//print the current board on the screen
 	void print();
 
+	//Add or remove a captured piece for player 1 or player 2
+
+    int getCaptured1() const;
+
+    void setCaptured1(int captured1);
+
+    int getCaptured2() const;
+
+    void setCaptured2(int captured2);
+
+    //To check if
+
+    bool hasCapturedPieces(const string& playerName);
+
+    //To check if a captured piece can move
+
+    bool isCapturedPiecesStucked(const int& d1, const int& d2, const string& PlayerName );
+
+    bool isCapturedPiecesStucked(const int &d, const string &playName);
 
 private:
 	int dice1;
@@ -34,6 +60,9 @@ private:
 	int player1Off;
 	int player2Off;
 
+	int captured1 = 0;
+	int captured2 =0;
+
     void setColor(string playerName);
 
     string getName(int id);
@@ -41,6 +70,8 @@ private:
     string addZeroForLessThan10(const int &num);
 
     void getSize(int num1, int num2, string& basicString, string& basicString1);
+
+
 };
 
 #endif /* BOARD_H_ */

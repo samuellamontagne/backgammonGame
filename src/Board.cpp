@@ -10,27 +10,36 @@
 #include "windows.h"
 
 Board::Board(Players p1, Players p2):dice1(0), dice2(0), player1(p1), player2(p2), player1Off(0), player2Off(0) {
-
-	for(int i = 0; i < 24; i++){
+        // case has two p1 p2
+	for(int i = 0; i < 26; i++){
 		Case currCase;
 		if(i == 1)
-			Case currCase(2, 0);
+            currCase.setNbPiecesPlayer1(2);
 		else if(i == 6)
-			Case currCase(0, 5);
+            currCase.setNbPiecesPlayer2(5);
 		else if(i == 8)
-			Case currCase(0, 3);
+            currCase.setNbPiecesPlayer2(3);
 		else if(i == 12)
-			Case currCase(5, 0);
+            currCase.setNbPiecesPlayer1(5);
 		else if(i == 13)
-			Case currCase(0, 5);
+            currCase.setNbPiecesPlayer2(5);
 		else if(i == 17)
-			Case currCase(3, 0);
+            currCase.setNbPiecesPlayer2(3);
 		else if(i == 19)
-			Case currCase(5, 0);
+            currCase.setNbPiecesPlayer1(5);
 		else if(i == 24)
-			Case currCase(0, 2);
-		else
-			Case currCase;
+            currCase.setNbPiecesPlayer2(2);
+		//Test case 1 captured
+//		else if(i == 24){
+//			currCase.setNbPiecesPlayer2(1);
+//			captured2 = 1;
+//		}
+//		else if(i == 25)
+//			currCase.setNbPiecesPlayer2(1);
+		//Test case 2 captured
+//		else if(i == 23){
+//			captured2 = 2;
+//		}
 
 		mainBoard.push_back(currCase);
 	}
@@ -40,44 +49,56 @@ Board::~Board() {
 
 }
 
-void Board::movePiecePlayer1(int movedFrom, int movedTo){
-	if(mainBoard.at(movedFrom -1).GetNbPiecesPlayer1() == 0){
+int Board::movePiecePlayer1(int movedFrom, int movedTo){
+
+	int rtn = -1;
+	if(mainBoard.at(movedFrom).GetNbPiecesPlayer1() == 0){
 		cout << "No pieces in this space" << endl;
 	}
 	else{
 
-		if(mainBoard.at(movedTo - 1).GetNbPiecesPlayer2() > 1){
+		if(mainBoard.at(movedTo).GetNbPiecesPlayer2() > 1){
 			cout << "Cannot play, because too much pieces from player 2 on case" << endl;
-		} else if(mainBoard.at(movedTo - 1).GetNbPiecesPlayer2() == 1){
-			//Capture mechanics TO ADD
-			mainBoard.at(movedFrom - 1).decrementNbPiecesPlayer1();
-			mainBoard.at(movedTo - 1).incrementNbPiecesPlayer1();
+		} else if(mainBoard.at(movedTo).GetNbPiecesPlayer2() == 1){
+            mainBoard.at(movedTo).decrementNbPiecesPlayer2();
+            captured2++;
+			mainBoard.at(movedFrom).decrementNbPiecesPlayer1();
+			mainBoard.at(movedTo).incrementNbPiecesPlayer1();
+			rtn = 1;
 		} else {
-			mainBoard.at(movedFrom - 1).decrementNbPiecesPlayer1();
-			mainBoard.at(movedTo - 1).incrementNbPiecesPlayer1();
+			mainBoard.at(movedFrom).decrementNbPiecesPlayer1();
+			mainBoard.at(movedTo).incrementNbPiecesPlayer1();
+			rtn = 1;
 		}
-		//mainBoard.printBoard();
+
 	}
+	return rtn;
 }
 
-void Board::movePiecePlayer2(int movedFrom, int movedTo){
-	if(mainBoard.at(movedFrom -1).GetNbPiecesPlayer2() == 0){
+int Board::movePiecePlayer2(int movedFrom, int movedTo){
+
+	int rtn = -1;
+	if(mainBoard.at(movedFrom).GetNbPiecesPlayer2() == 0){
 		cout << "No pieces in this space" << endl;
 	}
 	else{
 
-		if(mainBoard.at(movedTo - 1).GetNbPiecesPlayer1() > 1){
+		if(mainBoard.at(movedTo).GetNbPiecesPlayer1() > 1){
 			cout << "Cannot play, because too much pieces from player 1 on case" << endl;
-		} else if(mainBoard.at(movedTo - 1).GetNbPiecesPlayer1() == 1){
-			//Capture mechanics TO ADD
-			mainBoard.at(movedFrom - 1).decrementNbPiecesPlayer2();
-			mainBoard.at(movedTo - 1).incrementNbPiecesPlayer2();
+		} else if(mainBoard.at(movedTo).GetNbPiecesPlayer1() == 1){
+            mainBoard.at(movedTo -1).decrementNbPiecesPlayer1();
+            captured1++;
+			mainBoard.at(movedFrom).decrementNbPiecesPlayer2();
+			mainBoard.at(movedTo).incrementNbPiecesPlayer2();
+			rtn = 1;
 		} else {
-			mainBoard.at(movedFrom - 1).decrementNbPiecesPlayer2();
-			mainBoard.at(movedTo - 1).incrementNbPiecesPlayer2();
+			mainBoard.at(movedFrom).decrementNbPiecesPlayer2();
+			mainBoard.at(movedTo).incrementNbPiecesPlayer2();
+			rtn = 1;
 		}
-		//mainBoard.printBoard();
+
 	}
+	return rtn;
 }
 
 int Board::GetNbPiecesOffPlayer1(){
@@ -108,9 +129,9 @@ string Board::getName(int id) {
 
 
 void Board::setColor(string playerName) {
-    if (playerName == "player1") {
+    if (playerName == player1.getPlayName()) {
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED);
-    } else if (playerName == "player2") {
+    } else if (playerName == player2.getPlayName()) {
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_GREEN);
     } else {
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
@@ -122,9 +143,9 @@ void Board::print() {
         cout << setfill('*') << setw(41) << right << "" << endl;
         cout << setfill(' ');
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED);
-        cout << setw(20) << left << "Player1:red";
+        cout << setw(20) << left << player1.getPlayName();
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_GREEN);
-        cout << setfill(' ') << setw(21) << right << "Player2:green" << endl;
+        cout << setfill(' ') << setw(21) << right << player2.getPlayName() << endl;
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
                                 FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
         cout << setfill('*') << setw(41) << right << "" << endl;
@@ -135,16 +156,16 @@ void Board::print() {
         string pieces;
         for (int i = 0; i < 6; i++) {
 
-            player1PieceNum = mainBoard[12 + i].getNbPiecesPlayer1();
-            player2PieceNum = mainBoard[12 + i].getNbPiecesPlayer2();
+            player1PieceNum = mainBoard[13 + i].getNbPiecesPlayer1();
+            player2PieceNum = mainBoard[13 + i].getNbPiecesPlayer2();
             getSize(player1PieceNum,player2PieceNum,playerName,pieces);
             setColor(playerName);
             cout << setfill(' ');
             cout << setw(20) << left << "* " + to_string(13 + i) + "|" + pieces << " ";
 
 
-            player1PieceNum = mainBoard[11 - i].getNbPiecesPlayer1();
-            player2PieceNum = mainBoard[11 - i].getNbPiecesPlayer2();
+            player1PieceNum = mainBoard[12 - i].getNbPiecesPlayer1();
+            player2PieceNum = mainBoard[12 - i].getNbPiecesPlayer2();
             getSize(player1PieceNum,player2PieceNum,playerName,pieces);
 
             setColor(playerName);
@@ -156,9 +177,9 @@ void Board::print() {
         cout << "*";
         cout << setfill(' ');
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED);
-        cout << setw(20) << left << "Player1:red";
+        cout << setw(20) << left << "Captured:"+to_string(captured1);
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_GREEN);
-        cout << setfill(' ') << setw(19) << right << "Player2:green" << "*" << endl;
+        cout << setfill(' ') << setw(19) << right <<to_string(captured2)+":Captured" << "*" << endl;
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
                                 FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
         cout << "*";
@@ -167,16 +188,16 @@ void Board::print() {
 
         for (int i = 0; i < 6; i++) {
 
-            player1PieceNum = mainBoard[18 + i].getNbPiecesPlayer1();
-            player2PieceNum = mainBoard[18 + i].getNbPiecesPlayer2();
+            player1PieceNum = mainBoard[19 + i].getNbPiecesPlayer1();
+            player2PieceNum = mainBoard[19 + i].getNbPiecesPlayer2();
             getSize(player1PieceNum,player2PieceNum,playerName,pieces);
 
             setColor(playerName);
             cout << setfill(' ');
             cout << setw(20) << left << "* " + to_string(19 + i) + "|" + pieces << " ";
 
-            player1PieceNum = mainBoard[5 -i].getNbPiecesPlayer1();
-            player2PieceNum = mainBoard[5 -i].getNbPiecesPlayer2();
+            player1PieceNum = mainBoard[6 -i].getNbPiecesPlayer1();
+            player2PieceNum = mainBoard[6 -i].getNbPiecesPlayer2();
             getSize(player1PieceNum,player2PieceNum,playerName,pieces);
 
             setColor(playerName);
@@ -190,10 +211,10 @@ void Board::print() {
 
 void Board::getSize(int num1, int num2, string& basicString, string& basicString1) {
     if(num1>0 && num2==0){
-        basicString="player1";
+        basicString=player1.getPlayName();
         basicString1=to_string(num1);
     }else if(num2>0 && num1==0){
-        basicString="player1";
+        basicString=player2.getPlayName();
         basicString1=to_string(num2);
     }else{
         basicString="none";
@@ -201,4 +222,72 @@ void Board::getSize(int num1, int num2, string& basicString, string& basicString
     }
 
 }
+
+int Board::getCaptured1() const {
+    return captured1;
+}
+
+void Board::setCaptured1(int captured1) {
+    Board::captured1 = captured1;
+}
+
+int Board::getCaptured2() const {
+    return captured2;
+}
+
+void Board::setCaptured2(int captured2) {
+    Board::captured2 = captured2;
+}
+
+bool Board::hasCapturedPieces(const string& playerName) {
+    if(playerName==player1.getPlayName()){
+        return captured1 > 0;
+    } else if(playerName==player2.getPlayName()){
+        return captured2 > 0;
+    }else{
+        cout << "Error with player name";
+    }
+}
+
+bool Board::isCapturedPiecesStucked(const int &d1, const int &d2, const string& playName) {
+
+    if(playName==player1.getPlayName()){
+       if(mainBoard.at(d1-1).getNbPiecesPlayer2() >1 && mainBoard.at(d2-1).getNbPiecesPlayer2()>1){
+           return true;
+       }else{
+           return false;
+       }
+
+    } else if(playName==player2.getPlayName()){
+        if(mainBoard.at(d1-1).getNbPiecesPlayer1() >1 && mainBoard.at(d2-1).getNbPiecesPlayer1()>1){
+            return true;
+        }else{
+            return false;
+        }
+    }else{
+        cout << "Error with player name";
+    }
+}
+
+
+bool Board::isCapturedPiecesStucked(const int &d, const string& playName) {
+
+    if(playName==player1.getPlayName()){
+        if(mainBoard.at(d-1).getNbPiecesPlayer2() >1 ){
+            return true;
+        }else{
+            return false;
+        }
+
+    } else if(playName==player2.getPlayName()){
+        if(mainBoard.at(d-1).getNbPiecesPlayer1() >1){
+            return true;
+        }else{
+            return false;
+        }
+    }else{
+        cout << "Error with player name";
+    }
+}
+
 

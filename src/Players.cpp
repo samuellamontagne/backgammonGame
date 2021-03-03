@@ -46,18 +46,4 @@ Players::Players(const string &playName) : playName(playName) ,score(0) {
     playerCount++;
 }
 
-void Players::rollDice() {
-    srand (time(NULL));
-    dice1 = (rand() % 6) + 1;
-    dice2 = (rand() % 6) + 1;
-}
-
-int Players::getDice1() const {
-    return dice1;
-}
-
-int Players::getDice2() const {
-    return dice2;
-}
-
 int Players::playerCount = 1;
