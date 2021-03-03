@@ -86,6 +86,7 @@ int main() {
 		int otherDice = 0;
 		bool capturedCheck = false;
 		bool capturedStuck = false;
+		bool otherDiceUsed = false;
 		int captured = 0;
 
 		if(turn % 2 == 0){
@@ -142,12 +143,12 @@ int main() {
 				} else {
 
 					movedValid = gameBoard.movePiecePlayer1(0, 0 + choosedDice);
-					if(movedValid != -1){
-						gameBoard.setCaptured1(captured--);
-					} else {
+					if(movedValid == -1){
 						cout << "Cannot move this piece there, moving with the other dice" << endl;
 						movedValid = gameBoard.movePiecePlayer1(0, 0 + otherDice);
+						otherDiceUsed = true;
 					}
+					gameBoard.setCaptured1(captured--);
 				}
 			}else{
 			//Ask which Piece to move for the first dice
@@ -172,15 +173,17 @@ int main() {
 
 			//Move the other dice
 
-			if(dice1 == 0){
+			if(dice1 == 0 && !otherDiceUsed){
 				cout << "Now, you move for the second dice, which is : " << dice2 << endl;
 				choosedDice = dice2;
 				dice2 = 0;
 			}
-			else if(dice2 == 0){
+			else if(dice2 == 0 && !otherDiceUsed){
 				cout << "Now, you move for the second dice, which is : " << dice1 << endl;
 				choosedDice = dice1;
 				dice1 = 0;
+			}else if(otherDiceUsed){
+				cout << "Now, you move for the second dice, which is : " << choosedDice << endl;
 			}
 
 			//EVENTUALLY check for pieces that have been captured
@@ -295,7 +298,9 @@ int main() {
 					if(movedValid == -1){
 						cout << "Cannot move this piece there, moving with the other dice" << endl;
 						movedValid = gameBoard.movePiecePlayer2(25, 25 - otherDice);
+						otherDiceUsed = true;
 					}
+					gameBoard.setCaptured2(captured--);
 				}
 			}else{
 				do{
@@ -319,15 +324,17 @@ int main() {
 
 			//Move the other dice
 
-			if(dice1 == 0){
+			if(dice1 == 0 && !otherDiceUsed){
 				cout << "Now, you move for the second dice, which is : " << dice2 << endl;
 				choosedDice = dice2;
 				dice2 = 0;
 			}
-			else if(dice2 == 0){
+			else if(dice2 == 0 && !otherDiceUsed){
 				cout << "Now, you move for the second dice, which is : " << dice1 << endl;
 				choosedDice = dice1;
 				dice1 = 0;
+			} else if(otherDiceUsed){
+				cout << "Now, you move for the second dice, which is : " << choosedDice << endl;
 			}
 
 			//EVENTUALLY check for pieces that have been captured
