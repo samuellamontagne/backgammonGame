@@ -119,9 +119,9 @@ void Board::print() {
         cout << setfill('*') << setw(41) << right << "" << endl;
         cout << setfill(' ');
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED);
-        cout << setw(20) << left << "Player1:red";
+        cout << setw(20) << left << player1.getPlayName();
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_GREEN);
-        cout << setfill(' ') << setw(21) << right << "Player2:green" << endl;
+        cout << setfill(' ') << setw(21) << right << player2.getPlayName() << endl;
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
                                 FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
         cout << setfill('*') << setw(41) << right << "" << endl;
@@ -153,9 +153,9 @@ void Board::print() {
         cout << "*";
         cout << setfill(' ');
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED);
-        cout << setw(20) << left << "Player1:red";
+        cout << setw(20) << left << "Captured:";
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_GREEN);
-        cout << setfill(' ') << setw(19) << right << "Player2:green" << "*" << endl;
+        cout << setfill(' ') << setw(19) << right << ":Captured" << "*" << endl;
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
                                 FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
         cout << "*";
@@ -198,4 +198,56 @@ void Board::getSize(int num1, int num2, string& basicString, string& basicString
     }
 
 }
+
+int Board::getCaptuted1() const {
+    return captuted1;
+}
+
+void Board::setCaptuted1(int captuted1) {
+    Board::captuted1 = captuted1;
+}
+
+int Board::getCaptuted2() const {
+    return captuted2;
+}
+
+void Board::setCaptuted2(int captuted2) {
+    Board::captuted2 = captuted2;
+}
+
+bool Board::hasCapturedPieces(string playerName) {
+    if(playerName==player1.getPlayName()){
+        return captuted1 > 0;
+    } else if(playerName==player2.getPlayName()){
+        return captuted2 > 0;
+    }else{
+        cout << "Error with player name";
+    }
+}
+
+bool Board::isCapturedPiecesStucked(const int &d1, const int &d2, const string& playName) {
+
+    if(playName==player1.getPlayName()){
+       if(mainBoard.at(d1-1).getNbPiecesPlayer2() >1 || mainBoard.at(d2-1).getNbPiecesPlayer2()){
+           return true;
+       }else{
+           return false;
+       }
+
+    } else if(playName==player2.getPlayName()){
+        if(mainBoard.at(d1-1).getNbPiecesPlayer1() >1 || mainBoard.at(d2-1).getNbPiecesPlayer1()){
+            return true;
+        }else{
+            return false;
+        }
+    }else{
+        cout << "Error with player name";
+    }
+
+
+    return false;
+}
+
+
+
 

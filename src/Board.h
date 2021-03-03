@@ -24,6 +24,17 @@ public:
 	int GetNbPiecesOffPlayer2();
 	void print();
 
+    int getCaptuted1() const;
+
+    void setCaptuted1(int captuted1);
+
+    int getCaptuted2() const;
+
+    void setCaptuted2(int captuted2);
+
+    bool hasCapturedPieces(string playerName);
+
+    bool isCapturedPiecesStucked(const int& d1, const int& d2, const string& PlayerName );
 
 private:
 	int dice1;
@@ -33,6 +44,9 @@ private:
 	vector<Case> mainBoard;
 	int player1Off;
 	int player2Off;
+
+	int captuted1 = 0;
+	int captuted2 =0;
 
     void setColor(string playerName);
 
