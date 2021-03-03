@@ -10,7 +10,12 @@
 
 class Case {
 public:
-	Case(int nbPiece1 = 0, int nbPiece2 = 0);
+    void setNbPiecesPlayer1(int nbPiecesPlayer1);
+
+    void setNbPiecesPlayer2(int nbPiecesPlayer2);
+
+    Case();
+	Case(int nbPiece1, int nbPiece2 );
 	virtual ~Case();
 	void incrementNbPiecesPlayer1();
 	void incrementNbPiecesPlayer2();
@@ -18,6 +23,10 @@ public:
 	void decrementNbPiecesPlayer2();
 	int GetNbPiecesPlayer1();
 	int GetNbPiecesPlayer2();
+
+    int getNbPiecesPlayer1() const;
+
+    int getNbPiecesPlayer2() const;
 
 private:
 	int nbPiecesPlayer1;

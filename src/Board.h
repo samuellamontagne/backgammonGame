@@ -22,6 +22,7 @@ public:
 	void movePiecePlayer2(int movedFrom, int movedTo);
 	int GetNbPiecesOffPlayer1();
 	int GetNbPiecesOffPlayer2();
+	void print();
 
 
 private:
@@ -32,6 +33,14 @@ private:
 	vector<Case> mainBoard;
 	int player1Off;
 	int player2Off;
+
+    void setColor(string playerName);
+
+    string getName(int id);
+
+    string addZeroForLessThan10(const int &num);
+
+    void getSize(int num1, int num2, string& basicString, string& basicString1);
 };
 
 #endif /* BOARD_H_ */
