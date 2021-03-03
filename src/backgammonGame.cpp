@@ -247,7 +247,7 @@ int main() {
 				if(movedFrom < 1 && movedFrom > 24)
 					cout << "Invalid choice, please choose between 1 and 24" << endl;
 
-				movedValid = gameBoard.movePiecePlayer2(movedFrom, movedFrom + choosedDice);
+				movedValid = gameBoard.movePiecePlayer2(movedFrom, movedFrom - choosedDice);
 
 			} while(movedValid == -1);
 
