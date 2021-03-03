@@ -77,26 +77,97 @@ int main() {
 	//Check if any player got all his pieces Off board
 	while(gameBoard.GetNbPiecesOffPlayer1() != 15 || gameBoard.GetNbPiecesOffPlayer2() != 15){
 
+		int choice = 0;
+		int movedFrom = 0;
+		int movedValid = 0;
+		int choosedDice = 0;
+
 		if(turn % 2 == 0){
 			//Player's 1 turn
 
 			//Roll the dices
 
+			dice1 = rollDice();
+			dice2 = rollDice();
+
 			//EVENTUALLY check for pieces that have been captured
 
-			//Check if captured piece is stuck
+			//EVENTUALLY Check if captured piece is stuck
 
 			//Ask which dice to play
 
+			do{
+
+				cout << play1.getPlayName() <<  " you rolled a " << dice1 << " (1) and a " << dice2 << " (2)." << endl;
+				cout << "Which one would you like to play ?" << endl;
+
+				cin >> choice;
+
+				if(choice > 2)
+					cout << "Invalid choice, please choose between 1 and 2" << endl;
+
+			} while(choice > 2);
+
+			if(choice == 1){
+				choosedDice = dice1;
+				dice1 = 0;
+			}
+			if(choice == 2){
+				choosedDice = dice2;
+				dice2 = 0;
+			}
+
 			//Ask which Piece to move for the first dice
+			do{
+
+				cout << "Enter the case of the piece you want to move from" << endl;
+
+				cin >> movedFrom;
+
+				if(movedFrom < 1 && movedFrom > 24)
+					cout << "Invalid choice, please choose between 1 and 24" << endl;
+
+				movedValid = gameBoard.movePiecePlayer1(movedFrom, movedFrom + choosedDice);
+
+			} while(movedValid == -1);
+
+			gameBoard.print();
 
 			//Move the other dice
 
+			if(dice1 == 0){
+				cout << "Now, you move for the second dice, which is : " << dice2 << endl;
+				choosedDice = dice2;
+				dice2 = 0;
+			}
+			if(dice2 == 0){
+				cout << "Now, you move for the second dice, which is : " << dice1 << endl;
+				choosedDice = dice1;
+				dice1 = 0;
+			}
+
 			//Ask which piece to move for this second dice
+
+			do{
+
+				cout << "Enter the case of the piece you want to move from" << endl;
+
+				cin >> movedFrom;
+
+				if(movedFrom < 1 && movedFrom > 24)
+					cout << "Invalid choice, please choose between 1 and 24" << endl;
+
+				movedValid = gameBoard.movePiecePlayer1(movedFrom, movedFrom + choosedDice);
+
+			} while(movedValid == -1);
 
 			//Increment the turn so the other player plays
 
+			cout << "Your turn is over !" << endl;
+			turn++;
+
 			//Print board again
+			gameBoard.print();
 
 
 		} else {
@@ -104,21 +175,87 @@ int main() {
 
 			//Roll the dices
 
+			dice1 = rollDice();
+			dice2 = rollDice();
+
 			//EVENTUALLY check for pieces that have been captured
 
-			//Check if captured piece is stuck
+			//EVENTUALLY Check if captured piece is stuck
 
 			//Ask which dice to play
 
+			do{
+
+				cout << play2.getPlayName() <<  " you rolled a " << dice1 << " (1) and a " << dice2 << " (2)." << endl;
+				cout << "Which one would you like to play ?" << endl;
+
+				cin >> choice;
+
+				if(choice > 2)
+					cout << "Invalid choice, please choose between 1 and 2" << endl;
+
+			} while(choice > 2);
+
+			if(choice == 1){
+				choosedDice = dice1;
+				dice1 = 0;
+			}
+			if(choice == 2){
+				choosedDice = dice2;
+				dice2 = 0;
+			}
+
 			//Ask which Piece to move for the first dice
+			do{
+
+				cout << "Enter the case of the piece you want to move from" << endl;
+
+				cin >> movedFrom;
+
+				if(movedFrom < 1 && movedFrom > 24)
+					cout << "Invalid choice, please choose between 1 and 24" << endl;
+
+				movedValid = gameBoard.movePiecePlayer2(movedFrom, movedFrom + choosedDice);
+
+			} while(movedValid == -1);
+
+			gameBoard.print();
 
 			//Move the other dice
 
+			if(dice1 == 0){
+				cout << "Now, you move for the second dice, which is : " << dice2 << endl;
+				choosedDice = dice2;
+				dice2 = 0;
+			}
+			if(dice2 == 0){
+				cout << "Now, you move for the second dice, which is : " << dice1 << endl;
+				choosedDice = dice1;
+				dice1 = 0;
+			}
+
 			//Ask which piece to move for this second dice
+
+			do{
+
+				cout << "Enter the case of the piece you want to move from" << endl;
+
+				cin >> movedFrom;
+
+				if(movedFrom < 1 && movedFrom > 24)
+					cout << "Invalid choice, please choose between 1 and 24" << endl;
+
+				movedValid = gameBoard.movePiecePlayer2(movedFrom, movedFrom + choosedDice);
+
+			} while(movedValid == -1);
 
 			//Increment the turn so the other player plays
 
+			cout << "Your turn is over !" << endl;
+			turn++;
+
 			//Print board again
+			gameBoard.print();
 
 		}
 	}
@@ -135,25 +272,6 @@ int main() {
 		cout << play2.getPlayName() << ", congratulation, you won the game !" << endl;
 		return EXIT_SUCCESS;
 	}
-
-
-	cout << "Which dice do you want to play ? 1 or 2" << endl;
-
-	cin >> diceChoice;
-
-	if(diceChoice == 1)
-		diceValue = dice1;
-	else if(diceChoice == 2)
-		diceValue = dice2;
-	else
-		cout << "Please choose a value between 1 and 2." << endl;
-
-	cout << "Which case do you want to move from? 1-24" << endl;
-
-	cin >> caseChoice;
-
-	gameBoard.movePiecePlayer1(caseChoice, caseChoice + diceValue);
-
 
 
 	return 0;
