@@ -138,7 +138,7 @@ int main() {
 
 				} else {
 
-					movedValid = gameBoard.movePiecePlayer1(0, 0 +  choosedDice);
+					movedValid = gameBoard.movePiecePlayer1(1, 1 +  choosedDice);
 					gameBoard.setCaptured1(captured--);
 				}
 			}else{
@@ -192,7 +192,7 @@ int main() {
 
 				} else {
 
-					movedValid = gameBoard.movePiecePlayer1(0, 0 + choosedDice);
+					movedValid = gameBoard.movePiecePlayer1(1, 1 + choosedDice);
 					gameBoard.setCaptured1(captured--);
 
 				}
@@ -280,7 +280,7 @@ int main() {
 
 				} else {
 
-					movedValid = gameBoard.movePiecePlayer2(25, 25 - choosedDice);
+					movedValid = gameBoard.movePiecePlayer2(24, 24 - choosedDice);
 					gameBoard.setCaptured2(captured--);
 				}
 			}else{
@@ -335,7 +335,7 @@ int main() {
 
 				} else {
 
-					movedValid = gameBoard.movePiecePlayer2(25, 25 - choosedDice);
+					movedValid = gameBoard.movePiecePlayer2(24, 24 - choosedDice);
 					gameBoard.setCaptured2(captured--);
 				}
 			}else{
