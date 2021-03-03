@@ -60,8 +60,6 @@ private:
     void getSize(int num1, int num2, string& basicString, string& basicString1);
 
     bool isCapturedPiecesStucked(const int &d, const string &playName);
-
-    bool isCapturedPiecesStucked(const int &d, const string &playName);
 };
 
 #endif /* BOARD_H_ */
