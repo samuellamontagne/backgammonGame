@@ -115,9 +115,9 @@ string Board::getName(int id) {
 
 
 void Board::setColor(string playerName) {
-    if (playerName == "player1") {
+    if (playerName == player1.getPlayName()) {
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED);
-    } else if (playerName == "player2") {
+    } else if (playerName == player2.getPlayName()) {
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_GREEN);
     } else {
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
@@ -197,10 +197,10 @@ void Board::print() {
 
 void Board::getSize(int num1, int num2, string& basicString, string& basicString1) {
     if(num1>0 && num2==0){
-        basicString="player1";
+        basicString=player1.getPlayName();
         basicString1=to_string(num1);
     }else if(num2>0 && num1==0){
-        basicString="player1";
+        basicString=player2.getPlayName();
         basicString1=to_string(num2);
     }else{
         basicString="none";
