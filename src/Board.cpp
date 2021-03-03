@@ -52,16 +52,8 @@ Board::~Board() {
 int Board::movePiecePlayer1(int movedFrom, int movedTo){
 
 	int rtn = -1;
-	if(captured1 != 0){
-		mainBoard.at(movedFrom - 1).incrementNbPiecesPlayer1();
-	}
 	if(mainBoard.at(movedFrom -1).GetNbPiecesPlayer1() == 0){
-		if(captured1 != 0){
-			captured1--;
-			mainBoard.at(movedTo - 1).incrementNbPiecesPlayer1();
-			rtn = 1;
-		} else
-			cout << "No pieces in this space" << endl;
+		cout << "No pieces in this space" << endl;
 	}
 	else{
 
@@ -86,15 +78,8 @@ int Board::movePiecePlayer1(int movedFrom, int movedTo){
 int Board::movePiecePlayer2(int movedFrom, int movedTo){
 
 	int rtn = -1;
-	if(captured2 != 0)
-		mainBoard.at(movedFrom - 1).incrementNbPiecesPlayer2();
 	if(mainBoard.at(movedFrom -1).GetNbPiecesPlayer2() == 0){
-		if(captured2 != 0){
-			captured2--;
-			mainBoard.at(movedTo - 1).incrementNbPiecesPlayer2();
-			rtn = 1;
-		} else
-			cout << "No pieces in this space" << endl;
+		cout << "No pieces in this space" << endl;
 	}
 	else{
 
