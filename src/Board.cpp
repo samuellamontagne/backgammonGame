@@ -37,7 +37,7 @@ Board::Board(Players p1, Players p2):dice1(0), dice2(0), player1(p1), player2(p2
 		else if(i == 25)
 			currCase.setNbPiecesPlayer2(1);
 		//Test case 2 captured
-//		else if(i == 24){
+//		else if(i == 23){
 //			captured2 = 2;
 //		}
 
@@ -52,28 +52,30 @@ Board::~Board() {
 int Board::movePiecePlayer1(int movedFrom, int movedTo){
 
 	int rtn = -1;
+	if(captured1 != 0){
+		mainBoard.at(movedFrom - 1).incrementNbPiecesPlayer1();
+	}
 	if(mainBoard.at(movedFrom -1).GetNbPiecesPlayer1() == 0){
 		if(captured1 != 0){
 			captured1--;
-			mainBoard.at(movedTo).incrementNbPiecesPlayer1();
+			mainBoard.at(movedTo - 1).incrementNbPiecesPlayer1();
 			rtn = 1;
 		} else
 			cout << "No pieces in this space" << endl;
 	}
 	else{
 
-		if(mainBoard.at(movedTo).GetNbPiecesPlayer2() > 1){
+		if(mainBoard.at(movedTo - 1).GetNbPiecesPlayer2() > 1){
 			cout << "Cannot play, because too much pieces from player 2 on case" << endl;
-		} else if(mainBoard.at(movedTo).GetNbPiecesPlayer2() == 1){
-            mainBoard.at(movedTo).decrementNbPiecesPlayer2();
-            mainBoard.at(25).incrementNbPiecesPlayer2();
+		} else if(mainBoard.at(movedTo - 1).GetNbPiecesPlayer2() == 1){
+            mainBoard.at(movedTo -1).decrementNbPiecesPlayer2();
             captured2++;
-			mainBoard.at(movedFrom).decrementNbPiecesPlayer1();
-			mainBoard.at(movedTo).incrementNbPiecesPlayer1();
+			mainBoard.at(movedFrom - 1).decrementNbPiecesPlayer1();
+			mainBoard.at(movedTo - 1).incrementNbPiecesPlayer1();
 			rtn = 1;
 		} else {
-			mainBoard.at(movedFrom).decrementNbPiecesPlayer1();
-			mainBoard.at(movedTo).incrementNbPiecesPlayer1();
+			mainBoard.at(movedFrom - 1).decrementNbPiecesPlayer1();
+			mainBoard.at(movedTo - 1).incrementNbPiecesPlayer1();
 			rtn = 1;
 		}
 
@@ -84,28 +86,29 @@ int Board::movePiecePlayer1(int movedFrom, int movedTo){
 int Board::movePiecePlayer2(int movedFrom, int movedTo){
 
 	int rtn = -1;
-	if(mainBoard.at(movedFrom).GetNbPiecesPlayer2() == 0){
+	if(captured2 != 0)
+		mainBoard.at(movedFrom - 1).incrementNbPiecesPlayer2();
+	if(mainBoard.at(movedFrom -1).GetNbPiecesPlayer2() == 0){
 		if(captured2 != 0){
 			captured2--;
-			mainBoard.at(movedTo).incrementNbPiecesPlayer2();
+			mainBoard.at(movedTo - 1).incrementNbPiecesPlayer2();
 			rtn = 1;
 		} else
 			cout << "No pieces in this space" << endl;
 	}
 	else{
 
-		if(mainBoard.at(movedTo).GetNbPiecesPlayer1() > 1){
+		if(mainBoard.at(movedTo - 1).GetNbPiecesPlayer1() > 1){
 			cout << "Cannot play, because too much pieces from player 1 on case" << endl;
 		} else if(mainBoard.at(movedTo - 1).GetNbPiecesPlayer1() == 1){
-            mainBoard.at(movedTo).decrementNbPiecesPlayer1();
-            mainBoard.at(0).incrementNbPiecesPlayer1();
+            mainBoard.at(movedTo -1).decrementNbPiecesPlayer1();
             captured1++;
-			mainBoard.at(movedFrom).decrementNbPiecesPlayer2();
-			mainBoard.at(movedTo).incrementNbPiecesPlayer2();
+			mainBoard.at(movedFrom - 1).decrementNbPiecesPlayer2();
+			mainBoard.at(movedTo - 1).incrementNbPiecesPlayer2();
 			rtn = 1;
 		} else {
-			mainBoard.at(movedFrom).decrementNbPiecesPlayer2();
-			mainBoard.at(movedTo).incrementNbPiecesPlayer2();
+			mainBoard.at(movedFrom - 1).decrementNbPiecesPlayer2();
+			mainBoard.at(movedTo - 1).incrementNbPiecesPlayer2();
 			rtn = 1;
 		}
 
@@ -168,16 +171,16 @@ void Board::print() {
         string pieces;
         for (int i = 0; i < 6; i++) {
 
-            player1PieceNum = mainBoard[12 + i].getNbPiecesPlayer1();
-            player2PieceNum = mainBoard[12 + i].getNbPiecesPlayer2();
+            player1PieceNum = mainBoard[13 + i].getNbPiecesPlayer1();
+            player2PieceNum = mainBoard[13 + i].getNbPiecesPlayer2();
             getSize(player1PieceNum,player2PieceNum,playerName,pieces);
             setColor(playerName);
             cout << setfill(' ');
             cout << setw(20) << left << "* " + to_string(13 + i) + "|" + pieces << " ";
 
 
-            player1PieceNum = mainBoard[11 - i].getNbPiecesPlayer1();
-            player2PieceNum = mainBoard[11 - i].getNbPiecesPlayer2();
+            player1PieceNum = mainBoard[12 - i].getNbPiecesPlayer1();
+            player2PieceNum = mainBoard[12 - i].getNbPiecesPlayer2();
             getSize(player1PieceNum,player2PieceNum,playerName,pieces);
 
             setColor(playerName);
@@ -200,16 +203,16 @@ void Board::print() {
 
         for (int i = 0; i < 6; i++) {
 
-            player1PieceNum = mainBoard[18 + i].getNbPiecesPlayer1();
-            player2PieceNum = mainBoard[18 + i].getNbPiecesPlayer2();
+            player1PieceNum = mainBoard[19 + i].getNbPiecesPlayer1();
+            player2PieceNum = mainBoard[19 + i].getNbPiecesPlayer2();
             getSize(player1PieceNum,player2PieceNum,playerName,pieces);
 
             setColor(playerName);
             cout << setfill(' ');
             cout << setw(20) << left << "* " + to_string(19 + i) + "|" + pieces << " ";
 
-            player1PieceNum = mainBoard[5 -i].getNbPiecesPlayer1();
-            player2PieceNum = mainBoard[5 -i].getNbPiecesPlayer2();
+            player1PieceNum = mainBoard[6 -i].getNbPiecesPlayer1();
+            player2PieceNum = mainBoard[6 -i].getNbPiecesPlayer2();
             getSize(player1PieceNum,player2PieceNum,playerName,pieces);
 
             setColor(playerName);
