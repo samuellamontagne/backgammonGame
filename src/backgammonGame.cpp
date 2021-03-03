@@ -13,7 +13,6 @@
 #include <functional>
 #include "Board.h"
 
-//FIX look at moved captured
 
 using namespace std;
 
@@ -241,10 +240,10 @@ int main() {
 
 			//Roll the dices
 
-//			dice1 = rollDice();
-//			dice2 = rollDice();
-			dice1 = 5;
-			dice2 = 4;
+			dice1 = rollDice();
+			dice2 = rollDice();
+//			dice1 = 5;
+//			dice2 = 4;
 			captured = gameBoard.getCaptured2();
 
 			//Ask which dice to play

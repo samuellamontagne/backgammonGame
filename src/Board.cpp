@@ -10,7 +10,7 @@
 #include "windows.h"
 
 Board::Board(Players p1, Players p2):dice1(0), dice2(0), player1(p1), player2(p2), player1Off(0), player2Off(0) {
-
+        // case has two p1 p2
 	for(int i = 0; i < 26; i++){
 		Case currCase;
 		if(i == 1)
@@ -27,15 +27,15 @@ Board::Board(Players p1, Players p2):dice1(0), dice2(0), player1(p1), player2(p2
             currCase.setNbPiecesPlayer2(3);
 		else if(i == 19)
             currCase.setNbPiecesPlayer1(5);
-//		else if(i == 24)
-//            currCase.setNbPiecesPlayer2(2);
+		else if(i == 24)
+            currCase.setNbPiecesPlayer2(2);
 		//Test case 1 captured
-		else if(i == 24){
-			currCase.setNbPiecesPlayer2(1);
-			captured2 = 1;
-		}
-		else if(i == 25)
-			currCase.setNbPiecesPlayer2(1);
+//		else if(i == 24){
+//			currCase.setNbPiecesPlayer2(1);
+//			captured2 = 1;
+//		}
+//		else if(i == 25)
+//			currCase.setNbPiecesPlayer2(1);
 		//Test case 2 captured
 //		else if(i == 23){
 //			captured2 = 2;
