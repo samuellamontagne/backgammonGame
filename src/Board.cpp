@@ -6,6 +6,8 @@
  */
 
 #include "Board.h"
+#include <iomanip>
+#include "windows.h"
 
 Board::Board(Players p1, Players p2):dice1(0), dice2(0), player1(p1), player2(p2), player1Off(0), player2Off(0) {
 
@@ -83,5 +85,120 @@ int Board::GetNbPiecesOffPlayer1(){
 }
 int Board::GetNbPiecesOffPlayer2(){
 	return player2Off;
+}
+
+string Board::addZeroForLessThan10(const int &num) {
+    if (num < 10) {
+        return "0" + to_string(num);
+    } else {
+        return to_string(num);
+    }
+}
+
+
+string Board::getName(int id) {
+    if (id == 1) {
+        return "player1";
+    } else if (id == 2) {
+        return "player2";
+    } else {
+        return "none";
+    }
+}
+
+
+void Board::setColor(string playerName) {
+    if (playerName == "player1") {
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED);
+    } else if (playerName == "player2") {
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_GREEN);
+    } else {
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
+                                FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+    }
+}
+
+void Board::print() {
+        cout << setfill('*') << setw(41) << right << "" << endl;
+        cout << setfill(' ');
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED);
+        cout << setw(20) << left << "Player1:red";
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_GREEN);
+        cout << setfill(' ') << setw(21) << right << "Player2:green" << endl;
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
+                                FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+        cout << setfill('*') << setw(41) << right << "" << endl;
+        int player1PieceNum;
+        int player2PieceNum;
+
+        string playerName;
+        string pieces;
+        for (int i = 0; i < 6; i++) {
+
+            player1PieceNum = mainBoard[12 + i].getNbPiecesPlayer1();
+            player2PieceNum = mainBoard[12 + i].getNbPiecesPlayer2();
+            getSize(player1PieceNum,player2PieceNum,playerName,pieces);
+            setColor(playerName);
+            cout << setfill(' ');
+            cout << setw(20) << left << "* " + to_string(13 + i) + "|" + pieces << " ";
+
+
+            player1PieceNum = mainBoard[11 - i].getNbPiecesPlayer1();
+            player2PieceNum = mainBoard[11 - i].getNbPiecesPlayer2();
+            getSize(player1PieceNum,player2PieceNum,playerName,pieces);
+
+            setColor(playerName);
+            cout << setw(20) << right <<pieces + "|" + addZeroForLessThan10(12 - i) + " *" << endl;
+            setColor("None");
+        }
+        cout << "*";
+        cout << setfill('-') << setw(39) << right << "" << "*" << endl;
+        cout << "*";
+        cout << setfill(' ');
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED);
+        cout << setw(20) << left << "Player1:red";
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_GREEN);
+        cout << setfill(' ') << setw(19) << right << "Player2:green" << "*" << endl;
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
+                                FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+        cout << "*";
+        cout << setfill('-') << setw(39) << right << "" << "*" << endl;
+
+
+        for (int i = 0; i < 6; i++) {
+
+            player1PieceNum = mainBoard[18 + i].getNbPiecesPlayer1();
+            player2PieceNum = mainBoard[18 + i].getNbPiecesPlayer2();
+            getSize(player1PieceNum,player2PieceNum,playerName,pieces);
+
+            setColor(playerName);
+            cout << setfill(' ');
+            cout << setw(20) << left << "* " + to_string(19 + i) + "|" + pieces << " ";
+
+            player1PieceNum = mainBoard[5 -i].getNbPiecesPlayer1();
+            player2PieceNum = mainBoard[5 -i].getNbPiecesPlayer2();
+            getSize(player1PieceNum,player2PieceNum,playerName,pieces);
+
+            setColor(playerName);
+            cout << setw(20) << right << pieces + "|" + addZeroForLessThan10(6 - i) + " *" << endl;
+            setColor("None");
+        }
+
+        cout << setfill('*') << setw(41) << right << "" << endl;
+
+}
+
+void Board::getSize(int num1, int num2, string& basicString, string& basicString1) {
+    if(num1>0 && num2==0){
+        basicString="player1";
+        basicString1=to_string(num1);
+    }else if(num2>0 && num1==0){
+        basicString="player1";
+        basicString1=to_string(num2);
+    }else{
+        basicString="none";
+        basicString1="0";
+    }
+
 }
 

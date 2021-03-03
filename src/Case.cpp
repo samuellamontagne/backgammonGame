@@ -7,9 +7,9 @@
 
 #include "Case.h"
 
-Case::Case(int nbPiece1, int nbPiece2):nbPiecesPlayer1(nbPiece1), nbPiecesPlayer2(nbPiece2) {
-	// TODO Auto-generated constructor stub
-
+Case::Case(int nbPiece1, int nbPiece2) {
+    nbPiecesPlayer1=nbPiece1;
+    nbPiecesPlayer2=nbPiece2;
 }
 
 Case::~Case() {
@@ -37,4 +37,24 @@ int Case::GetNbPiecesPlayer1(){
 }
 int Case::GetNbPiecesPlayer2(){
 	return nbPiecesPlayer2;
+}
+
+int Case::getNbPiecesPlayer1() const {
+    return nbPiecesPlayer1;
+}
+
+int Case::getNbPiecesPlayer2() const {
+    return nbPiecesPlayer2;
+}
+
+Case::Case():nbPiecesPlayer1(0),nbPiecesPlayer2(0) {
+
+}
+
+void Case::setNbPiecesPlayer1(int nbPiecesPlayer1) {
+    Case::nbPiecesPlayer1 = nbPiecesPlayer1;
+}
+
+void Case::setNbPiecesPlayer2(int nbPiecesPlayer2) {
+    Case::nbPiecesPlayer2 = nbPiecesPlayer2;
 }
