@@ -35,7 +35,7 @@ public:
 
     void setCaptured2(int captuted2);
 
-    bool hasCapturedPieces(string playerName);
+    bool hasCapturedPieces(const string& playerName);
 
     bool isCapturedPiecesStucked(const int& d1, const int& d2, const string& PlayerName );
 

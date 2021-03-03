@@ -228,7 +228,7 @@ void Board::setCaptured2(int captuted2) {
     Board::captured2 = captuted2;
 }
 
-bool Board::hasCapturedPieces(string playerName) {
+bool Board::hasCapturedPieces(const string& playerName) {
     if(playerName==player1.getPlayName()){
         return captured1 > 0;
     } else if(playerName==player2.getPlayName()){
