@@ -23,9 +23,15 @@ public:
 	//Return 1 if the pieces has been moved
 	int movePiecePlayer1(int movedFrom, int movedTo);
 	int movePiecePlayer2(int movedFrom, int movedTo);
+
+	//to know if a player has won the game
 	int GetNbPiecesOffPlayer1();
 	int GetNbPiecesOffPlayer2();
+
+	//print the current board on the screen
 	void print();
+
+	//Add or remove a captured piece for player 1 or player 2
 
     int getCaptured1() const;
 
@@ -35,7 +41,11 @@ public:
 
     void setCaptured2(int captured2);
 
+    //To check if
+
     bool hasCapturedPieces(const string& playerName);
+
+    //To check if a captured piece can move
 
     bool isCapturedPiecesStucked(const int& d1, const int& d2, const string& PlayerName );
 

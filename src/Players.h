@@ -24,9 +24,6 @@ public:
 
     virtual ~Players();
 
-    void rollDice();
-
-
     const string &getPlayName() const;
 
     void setPlayName(const string &playName);
@@ -35,17 +32,12 @@ public:
 
     void setScore(int score);
 
-    int getDice1() const;
-
-    int getDice2() const;
 
 
 
 private:
     string playName;
     int score;
-    int dice1=0;
-    int dice2=0;
     static int playerCount;
 
 

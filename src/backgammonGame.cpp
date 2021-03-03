@@ -121,6 +121,8 @@ int main() {
 
 			} while(choice > 2);
 
+
+			//Dice choice
 			if(choice == 1){
 				choosedDice = dice1;
 				otherDice = dice2;
@@ -142,6 +144,8 @@ int main() {
 				} else {
 
 					movedValid = gameBoard.movePiecePlayer1(0, 0 + choosedDice);
+
+					//if this move with the choosed dice is blocked, we try the other dice, since we know the piece is not stuck
 					if(movedValid == -1){
 						cout << "Cannot move this piece there, moving with the other dice" << endl;
 						movedValid = gameBoard.movePiecePlayer1(0, 0 + otherDice);
@@ -171,6 +175,7 @@ int main() {
 			capturedStuck = false;
 
 			//Move the other dice
+			//Determine the other dice if we used the second dice because of captured
 
 			if(dice1 == 0 && !otherDiceUsed){
 				cout << "Now, you move for the second dice, which is : " << dice2 << endl;
@@ -271,7 +276,7 @@ int main() {
 			} while(choice > 2);
 
 
-
+			//Dice choice
 			if(choice == 1){
 				choosedDice = dice1;
 				otherDice = dice2;
@@ -294,7 +299,7 @@ int main() {
 					continue;
 
 				} else {
-
+					//if this move with the choosed dice is blocked, we try the other dice, since we know the piece is not stuck
 					movedValid = gameBoard.movePiecePlayer2(25, 25 - choosedDice);
 					if(movedValid == -1){
 						cout << "Cannot move this piece there, moving with the other dice" << endl;
@@ -390,6 +395,7 @@ int main() {
 
 	gameBoard.print();
 
+	//Congratulate the winner and close the game
 	if(gameBoard.GetNbPiecesOffPlayer1() == 15){
 		cout << endl << endl;
 		cout << play1.getPlayName() << ", congratulation, you won the game !" << endl;
