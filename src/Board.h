@@ -27,13 +27,13 @@ public:
 	int GetNbPiecesOffPlayer2();
 	void print();
 
-    int getCaptuted1() const;
+    int getCaptured1() const;
 
-    void setCaptuted1(int captuted1);
+    void setCaptured1(int captuted1);
 
-    int getCaptuted2() const;
+    int getCaptured2() const;
 
-    void setCaptuted2(int captuted2);
+    void setCaptured2(int captuted2);
 
     bool hasCapturedPieces(string playerName);
 
@@ -49,7 +49,7 @@ private:
 	int player2Off;
 
 	int captured1 = 0;
-	int captured2 = 0;
+	int captured2 =0;
 
     void setColor(string playerName);
 

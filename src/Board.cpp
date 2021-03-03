@@ -49,10 +49,8 @@ int Board::movePiecePlayer1(int movedFrom, int movedTo){
 		if(mainBoard.at(movedTo - 1).GetNbPiecesPlayer2() > 1){
 			cout << "Cannot play, because too much pieces from player 2 on case" << endl;
 		} else if(mainBoard.at(movedTo - 1).GetNbPiecesPlayer2() == 1){
-			//Capture mechanics
-			mainBoard.at(movedTo -1).decrementNbPiecesPlayer2();
-			captured2++;
-
+            mainBoard.at(movedTo -1).decrementNbPiecesPlayer2();
+            captured2++;
 			mainBoard.at(movedFrom - 1).decrementNbPiecesPlayer1();
 			mainBoard.at(movedTo - 1).incrementNbPiecesPlayer1();
 			rtn = 1;
@@ -77,10 +75,8 @@ int Board::movePiecePlayer2(int movedFrom, int movedTo){
 		if(mainBoard.at(movedTo - 1).GetNbPiecesPlayer1() > 1){
 			cout << "Cannot play, because too much pieces from player 1 on case" << endl;
 		} else if(mainBoard.at(movedTo - 1).GetNbPiecesPlayer1() == 1){
-			//Capture mechanics
-			mainBoard.at(movedTo -1).decrementNbPiecesPlayer1();
-			captured1++;
-
+            mainBoard.at(movedTo -1).decrementNbPiecesPlayer1();
+            captured1++;
 			mainBoard.at(movedFrom - 1).decrementNbPiecesPlayer2();
 			mainBoard.at(movedTo - 1).incrementNbPiecesPlayer2();
 			rtn = 1;
@@ -216,27 +212,27 @@ void Board::getSize(int num1, int num2, string& basicString, string& basicString
 
 }
 
-int Board::getCaptuted1() const {
-    return captuted1;
+int Board::getCaptured1() const {
+    return captured1;
 }
 
-void Board::setCaptuted1(int captuted1) {
-    Board::captuted1 = captuted1;
+void Board::setCaptured1(int captuted1) {
+    Board::captured1 = captuted1;
 }
 
-int Board::getCaptuted2() const {
-    return captuted2;
+int Board::getCaptured2() const {
+    return captured2;
 }
 
-void Board::setCaptuted2(int captuted2) {
-    Board::captuted2 = captuted2;
+void Board::setCaptured2(int captuted2) {
+    Board::captured2 = captuted2;
 }
 
 bool Board::hasCapturedPieces(string playerName) {
     if(playerName==player1.getPlayName()){
-        return captuted1 > 0;
+        return captured1 > 0;
     } else if(playerName==player2.getPlayName()){
-        return captuted2 > 0;
+        return captured2 > 0;
     }else{
         cout << "Error with player name";
     }
