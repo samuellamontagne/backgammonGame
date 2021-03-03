@@ -34,6 +34,8 @@ Board::Board(Players p1, Players p2):dice1(0), dice2(0), player1(p1), player2(p2
 			currCase.setNbPiecesPlayer2(1);
 			captured2 = 1;
 		}
+		else if(i == 25)
+			currCase.setNbPiecesPlayer2(1);
 		//Test case 2 captured
 //		else if(i == 24){
 //			captured2 = 2;
