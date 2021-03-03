@@ -48,8 +48,8 @@ private:
 	int player1Off;
 	int player2Off;
 
-	int captuted1 = 0;
-	int captuted2 =0;
+	int captured1 = 0;
+	int captured2 = 0;
 
     void setColor(string playerName);
 

@@ -142,7 +142,7 @@ int main() {
 				choosedDice = dice2;
 				dice2 = 0;
 			}
-			if(dice2 == 0){
+			else if(dice2 == 0){
 				cout << "Now, you move for the second dice, which is : " << dice1 << endl;
 				choosedDice = dice1;
 				dice1 = 0;
@@ -230,7 +230,7 @@ int main() {
 				choosedDice = dice2;
 				dice2 = 0;
 			}
-			if(dice2 == 0){
+			else if(dice2 == 0){
 				cout << "Now, you move for the second dice, which is : " << dice1 << endl;
 				choosedDice = dice1;
 				dice1 = 0;
