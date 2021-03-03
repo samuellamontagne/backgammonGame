@@ -18,8 +18,11 @@ class Board {
 public:
 	Board(Players p1, Players p2);
 	virtual ~Board();
-	void movePiecePlayer1(int movedFrom, int movedTo);
-	void movePiecePlayer2(int movedFrom, int movedTo);
+
+	//Return -1 if there is no pieces to move from the choosed space
+	//Return 1 if the pieces has been moved
+	int movePiecePlayer1(int movedFrom, int movedTo);
+	int movePiecePlayer2(int movedFrom, int movedTo);
 	int GetNbPiecesOffPlayer1();
 	int GetNbPiecesOffPlayer2();
 	void print();

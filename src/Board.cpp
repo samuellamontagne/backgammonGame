@@ -37,7 +37,9 @@ Board::~Board() {
 
 }
 
-void Board::movePiecePlayer1(int movedFrom, int movedTo){
+int Board::movePiecePlayer1(int movedFrom, int movedTo){
+
+	int rtn = -1;
 	if(mainBoard.at(movedFrom -1).GetNbPiecesPlayer1() == 0){
 		cout << "No pieces in this space" << endl;
 	}
@@ -49,15 +51,20 @@ void Board::movePiecePlayer1(int movedFrom, int movedTo){
 			//Capture mechanics TO ADD
 			mainBoard.at(movedFrom - 1).decrementNbPiecesPlayer1();
 			mainBoard.at(movedTo - 1).incrementNbPiecesPlayer1();
+			rtn = 1;
 		} else {
 			mainBoard.at(movedFrom - 1).decrementNbPiecesPlayer1();
 			mainBoard.at(movedTo - 1).incrementNbPiecesPlayer1();
+			rtn = 1;
 		}
 		//mainBoard.printBoard();
 	}
+	return rtn;
 }
 
-void Board::movePiecePlayer2(int movedFrom, int movedTo){
+int Board::movePiecePlayer2(int movedFrom, int movedTo){
+
+	int rtn = -1;
 	if(mainBoard.at(movedFrom -1).GetNbPiecesPlayer2() == 0){
 		cout << "No pieces in this space" << endl;
 	}
@@ -69,12 +76,15 @@ void Board::movePiecePlayer2(int movedFrom, int movedTo){
 			//Capture mechanics TO ADD
 			mainBoard.at(movedFrom - 1).decrementNbPiecesPlayer2();
 			mainBoard.at(movedTo - 1).incrementNbPiecesPlayer2();
+			rtn = 1;
 		} else {
 			mainBoard.at(movedFrom - 1).decrementNbPiecesPlayer2();
 			mainBoard.at(movedTo - 1).incrementNbPiecesPlayer2();
+			rtn = 1;
 		}
 		//mainBoard.printBoard();
 	}
+	return rtn;
 }
 
 int Board::GetNbPiecesOffPlayer1(){
