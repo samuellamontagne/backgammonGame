@@ -29,6 +29,15 @@ Board::Board(Players p1, Players p2):dice1(0), dice2(0), player1(p1), player2(p2
             currCase.setNbPiecesPlayer1(5);
 		else if(i == 23)
             currCase.setNbPiecesPlayer2(2);
+/*		//Test case 1 capture
+		else if(i == 23){
+			currCase.setNbPiecesPlayer2(1);
+			captured2 = 1;
+		}
+		//Test case 2 capture
+		else if(i == 23){
+			captured2 = 2;
+		}*/
 
 		mainBoard.push_back(currCase);
 	}
