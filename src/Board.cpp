@@ -14,23 +14,21 @@ Board::Board(Players p1, Players p2):dice1(0), dice2(0), player1(p1), player2(p2
 	for(int i = 0; i < 24; i++){
 		Case currCase;
 		if(i == 0)
-			Case currCase(2, 0);
+            currCase.setNbPiecesPlayer1(2);
 		else if(i == 5)
-			Case currCase(0, 5);
+            currCase.setNbPiecesPlayer2(5);
 		else if(i == 7)
-			Case currCase(0, 3);
+            currCase.setNbPiecesPlayer2(3);
 		else if(i == 11)
-			Case currCase(5, 0);
+            currCase.setNbPiecesPlayer1(5);
 		else if(i == 12)
-			Case currCase(0, 5);
+            currCase.setNbPiecesPlayer2(5);
 		else if(i == 16)
-			Case currCase(3, 0);
+            currCase.setNbPiecesPlayer2(3);
 		else if(i == 18)
-			Case currCase(5, 0);
+            currCase.setNbPiecesPlayer1(5);
 		else if(i == 23)
-			Case currCase(0, 2);
-		else
-			Case currCase;
+            currCase.setNbPiecesPlayer2(2);
 
 		mainBoard.push_back(currCase);
 	}
@@ -118,9 +116,9 @@ string Board::getName(int id) {
 
 
 void Board::setColor(string playerName) {
-    if (playerName == "player1") {
+    if (playerName == player1.getPlayName()) {
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED);
-    } else if (playerName == "player2") {
+    } else if (playerName == player2.getPlayName()) {
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_GREEN);
     } else {
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
@@ -132,9 +130,9 @@ void Board::print() {
         cout << setfill('*') << setw(41) << right << "" << endl;
         cout << setfill(' ');
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED);
-        cout << setw(20) << left << "Player1:red";
+        cout << setw(20) << left << player1.getPlayName();
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_GREEN);
-        cout << setfill(' ') << setw(21) << right << "Player2:green" << endl;
+        cout << setfill(' ') << setw(21) << right << player2.getPlayName() << endl;
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
                                 FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
         cout << setfill('*') << setw(41) << right << "" << endl;
@@ -166,9 +164,9 @@ void Board::print() {
         cout << "*";
         cout << setfill(' ');
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED);
-        cout << setw(20) << left << "Player1:red";
+        cout << setw(20) << left << "Captured:";
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_GREEN);
-        cout << setfill(' ') << setw(19) << right << "Player2:green" << "*" << endl;
+        cout << setfill(' ') << setw(19) << right << ":Captured" << "*" << endl;
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
                                 FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
         cout << "*";
@@ -200,10 +198,10 @@ void Board::print() {
 
 void Board::getSize(int num1, int num2, string& basicString, string& basicString1) {
     if(num1>0 && num2==0){
-        basicString="player1";
+        basicString=player1.getPlayName();
         basicString1=to_string(num1);
     }else if(num2>0 && num1==0){
-        basicString="player1";
+        basicString=player2.getPlayName();
         basicString1=to_string(num2);
     }else{
         basicString="none";
@@ -211,4 +209,56 @@ void Board::getSize(int num1, int num2, string& basicString, string& basicString
     }
 
 }
+
+int Board::getCaptuted1() const {
+    return captuted1;
+}
+
+void Board::setCaptuted1(int captuted1) {
+    Board::captuted1 = captuted1;
+}
+
+int Board::getCaptuted2() const {
+    return captuted2;
+}
+
+void Board::setCaptuted2(int captuted2) {
+    Board::captuted2 = captuted2;
+}
+
+bool Board::hasCapturedPieces(string playerName) {
+    if(playerName==player1.getPlayName()){
+        return captuted1 > 0;
+    } else if(playerName==player2.getPlayName()){
+        return captuted2 > 0;
+    }else{
+        cout << "Error with player name";
+    }
+}
+
+bool Board::isCapturedPiecesStucked(const int &d1, const int &d2, const string& playName) {
+
+    if(playName==player1.getPlayName()){
+       if(mainBoard.at(d1-1).getNbPiecesPlayer2() >1 || mainBoard.at(d2-1).getNbPiecesPlayer2()){
+           return true;
+       }else{
+           return false;
+       }
+
+    } else if(playName==player2.getPlayName()){
+        if(mainBoard.at(d1-1).getNbPiecesPlayer1() >1 || mainBoard.at(d2-1).getNbPiecesPlayer1()){
+            return true;
+        }else{
+            return false;
+        }
+    }else{
+        cout << "Error with player name";
+    }
+
+
+    return false;
+}
+
+
+
 
