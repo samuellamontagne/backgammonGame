@@ -241,14 +241,14 @@ bool Board::hasCapturedPieces(string playerName) {
 bool Board::isCapturedPiecesStucked(const int &d1, const int &d2, const string& playName) {
 
     if(playName==player1.getPlayName()){
-       if(mainBoard.at(d1-1).getNbPiecesPlayer2() >1 || mainBoard.at(d2-1).getNbPiecesPlayer2()){
+       if(mainBoard.at(d1-1).getNbPiecesPlayer2() >1 || mainBoard.at(d2-1).getNbPiecesPlayer2()>1){
            return true;
        }else{
            return false;
        }
 
     } else if(playName==player2.getPlayName()){
-        if(mainBoard.at(d1-1).getNbPiecesPlayer1() >1 || mainBoard.at(d2-1).getNbPiecesPlayer1()){
+        if(mainBoard.at(d1-1).getNbPiecesPlayer1() >1 || mainBoard.at(d2-1).getNbPiecesPlayer1()>1){
             return true;
         }else{
             return false;
@@ -256,11 +256,27 @@ bool Board::isCapturedPiecesStucked(const int &d1, const int &d2, const string& 
     }else{
         cout << "Error with player name";
     }
-
-
-    return false;
 }
 
 
+bool Board::isCapturedPiecesStucked(const int &d, const string& playName) {
+
+    if(playName==player1.getPlayName()){
+        if(mainBoard.at(d-1).getNbPiecesPlayer2() >1 ){
+            return true;
+        }else{
+            return false;
+        }
+
+    } else if(playName==player2.getPlayName()){
+        if(mainBoard.at(d-1).getNbPiecesPlayer1() >1){
+            return true;
+        }else{
+            return false;
+        }
+    }else{
+        cout << "Error with player name";
+    }
+}
 
 
