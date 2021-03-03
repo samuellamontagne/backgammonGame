@@ -83,6 +83,7 @@ int main() {
 		int movedFrom = 0;
 		int movedValid = 0;
 		int choosedDice = 0;
+		int otherDice = 0;
 		bool capturedCheck = false;
 		bool capturedStuck = false;
 		int captured = 0;
@@ -122,10 +123,12 @@ int main() {
 
 			if(choice == 1){
 				choosedDice = dice1;
+				otherDice = dice2;
 				dice1 = 0;
 			}
 			if(choice == 2){
 				choosedDice = dice2;
+				otherDice = dice1;
 				dice2 = 0;
 			}
 
@@ -138,8 +141,13 @@ int main() {
 
 				} else {
 
-					movedValid = gameBoard.movePiecePlayer1(0, 0 +  choosedDice);
-					gameBoard.setCaptured1(captured--);
+					movedValid = gameBoard.movePiecePlayer1(0, 0 + choosedDice);
+					if(movedValid != -1){
+						gameBoard.setCaptured1(captured--);
+					} else {
+						cout << "Cannot move this piece there, moving with the other dice" << endl;
+						movedValid = gameBoard.movePiecePlayer1(0, 0 + otherDice);
+					}
 				}
 			}else{
 			//Ask which Piece to move for the first dice
@@ -193,7 +201,8 @@ int main() {
 				} else {
 
 					movedValid = gameBoard.movePiecePlayer1(0, 0 + choosedDice);
-					gameBoard.setCaptured1(captured--);
+					if(movedValid != -1)
+						gameBoard.setCaptured1(captured--);
 
 				}
 
@@ -261,10 +270,12 @@ int main() {
 
 			if(choice == 1){
 				choosedDice = dice1;
+				otherDice = dice2;
 				dice1 = 0;
 			}
 			if(choice == 2){
 				choosedDice = dice2;
+				otherDice = dice1;
 				dice2 = 0;
 			}
 
@@ -280,8 +291,13 @@ int main() {
 
 				} else {
 
-					movedValid = gameBoard.movePiecePlayer2(25, 25 - choosedDice);
-					gameBoard.setCaptured2(captured--);
+					movedValid = gameBoard.movePiecePlayer2(24, 24 - choosedDice);
+					if(movedValid != -1){
+						gameBoard.setCaptured1(captured--);
+					} else {
+						cout << "Cannot move this piece there, moving with the other dice" << endl;
+						movedValid = gameBoard.movePiecePlayer1(0, 0 + otherDice);
+					}
 				}
 			}else{
 				do{
@@ -335,8 +351,9 @@ int main() {
 
 				} else {
 
-					movedValid = gameBoard.movePiecePlayer2(25, 25 - choosedDice);
-					gameBoard.setCaptured2(captured--);
+					movedValid = gameBoard.movePiecePlayer2(24, 24 - choosedDice);
+					if(movedValid != -1)
+						gameBoard.setCaptured1(captured--);
 				}
 			}else{
 
