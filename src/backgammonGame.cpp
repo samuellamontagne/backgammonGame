@@ -292,11 +292,9 @@ int main() {
 				} else {
 
 					movedValid = gameBoard.movePiecePlayer2(24, 24 - choosedDice);
-					if(movedValid != -1){
-						gameBoard.setCaptured1(captured--);
-					} else {
+					if(movedValid == -1){
 						cout << "Cannot move this piece there, moving with the other dice" << endl;
-						movedValid = gameBoard.movePiecePlayer1(0, 0 + otherDice);
+						movedValid = gameBoard.movePiecePlayer2(24, 24 - otherDice);
 					}
 				}
 			}else{
