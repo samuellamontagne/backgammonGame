@@ -14,24 +14,21 @@ Board::Board(Players p1, Players p2):dice1(0), dice2(0), player1(p1), player2(p2
 	for(int i = 0; i < 24; i++){
 		Case currCase;
 		if(i == 1)
-			Case currCase(2, 0);
+            currCase.setNbPiecesPlayer1(2);
 		else if(i == 6)
-			Case currCase(0, 5);
+            currCase.setNbPiecesPlayer2(5);
 		else if(i == 8)
-			Case currCase(0, 3);
+            currCase.setNbPiecesPlayer2(3);
 		else if(i == 12)
-			Case currCase(5, 0);
+            currCase.setNbPiecesPlayer1(5);
 		else if(i == 13)
-			Case currCase(0, 5);
+            currCase.setNbPiecesPlayer2(5);
 		else if(i == 17)
-			Case currCase(3, 0);
+            currCase.setNbPiecesPlayer2(3);
 		else if(i == 19)
-			Case currCase(5, 0);
+            currCase.setNbPiecesPlayer1(5);
 		else if(i == 24)
-			Case currCase(0, 2);
-		else
-			Case currCase;
-
+            currCase.setNbPiecesPlayer2(2);
 		mainBoard.push_back(currCase);
 	}
 }
